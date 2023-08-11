@@ -1,0 +1,63 @@
+.header {
+  color: #c4c4c403;
+  box-shadow: 0px -1px 0px 0px #ffffff33 inset;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 80px;
+}
+.header__title {
+  font-family: "Roboto Slab", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  cursor: url("../../images/hand.svg"), auto;
+}
+.header__hamburger {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 0 40px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .header {
+    padding: 0 20px;
+    overflow: hidden;
+    position: relative;
+    max-width: 100%;
+    background: hsla(0, 0%, 76.9%, 0.01);
+    box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.2);
+  }
+  .header__title {
+    margin: 16px 0;
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  .header__button-open {
+    background-image: url(../../images/menu.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-color: hsla(0, 0%, 76.9%, 0.01);
+  }
+  .header__hamburger {
+    padding: 0;
+    display: block;
+    border: 0;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 24px;
+    height: 24px;
+  }
+  .header__hamburger:hover {
+    cursor: url("../../images/hand.svg"), auto;
+  }
+}

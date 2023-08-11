@@ -1,0 +1,28 @@
+.page {
+  display: block;
+}
+.page__main {
+  border: 1px solid #000;
+  background-image: url(/src/images/page_main_background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+}
+.page__main-loggedin {
+  border: 1px solid #000;
+  background-color: white;
+  color: #000;
+  border: none;
+}
+@media screen and (max-width: 768px) {
+  .page__main {
+    background-image: url(/src//images//page_main_tablet.png);
+  }
+}
+@media screen and (max-width: 540px) {
+  .page__main {
+    display: flex;
+    flex-direction: column;
+    background-image: url(/src/images/page_main_backgroundMobile.png);
+  }
+}

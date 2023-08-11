@@ -1,0 +1,85 @@
+.search-form {
+  margin: 0 auto;
+  position: relative;
+  width: 608px;
+  padding-bottom: 40px;
+}
+.search-form__input {
+  font-family: "Roboto", sans-serif;
+  width: 555px;
+  height: 19px;
+  border-radius: 100px;
+  border: 1px solid #d1d2d6;
+  padding: 21px 24px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #1a1b22;
+}
+.search-form__input-error {
+  position: absolute;
+  bottom: 20px;
+  left: 30%;
+  margin: 0 36px;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.5px;
+  color: red;
+  visibility: hidden;
+}
+.search-form__input-error_visible {
+  visibility: visible;
+}
+.search-form__button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 65px;
+  width: 170px;
+  border-radius: 100px;
+  background: #2f71e5;
+  box-shadow: 0 5px 15px rgba(14, 26, 57, 0.2);
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  border: 0;
+  transition: background 0.3s ease-in-out;
+}
+.search-form__button:hover {
+  background-color: #347eff;
+  cursor: url("../../images/hand.svg"), auto;
+}
+.search-form__button_disabled {
+  background: #e6e8eb;
+  color: #b6bcbf;
+}
+@media screen and (max-width: 540px) {
+  .search-form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90vw;
+    margin: 122px auto;
+  }
+  .search-form__input {
+    width: 90%;
+    margin: 0;
+  }
+  .search-form__input-error {
+    position: absolute;
+    top: 65px;
+    left: 20%;
+    z-index: 2;
+  }
+
+  .search-form__button {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    height: 56px;
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,74 @@
+.menu-modal {
+  align-items: start;
+}
+.menu-modal__container {
+  position: relative;
+  background-color: #1a1b22;
+  width: 100%;
+  height: 230px;
+  box-sizing: border-box;
+}
+.menu-modal__title {
+  color: #fff;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+  padding: 24px;
+  box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.2);
+  cursor: url("../../images/hand.svg"), auto;
+}
+.menu-modal__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-image: url(../../images/Iconclose.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+.menu-modal__links {
+  padding: 0;
+  display: block;
+  z-index: 5;
+  width: 100vw;
+  position: fixed;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 56px;
+}
+.menu-modal__links-item {
+  display: block;
+  text-decoration: none;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #ffffff;
+  margin: 0 auto;
+  padding: 26px;
+  transition: opacity 0.5s ease-in-out;
+  cursor: url("../../images/hand.svg"), auto;
+}
+.menu-modal__links-button {
+  background-color: hsla(0, 0%, 76.9%, 0.01);
+  color: #fff;
+  border-radius: 100px;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  border: 1px solid #fff;
+  width: 288px;
+  height: 56px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: url("../../images/hand.svg"), auto;
+}
