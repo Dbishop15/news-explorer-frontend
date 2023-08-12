@@ -47,7 +47,7 @@ function SavedNewsHeader({ articles }) {
   const keywordString = getKeywordString(keywords);
 
   return (
-    <div className="save-news-header">
+    <section className="save-news-header">
       <p className="save-news-header__text-head">Saved articles</p>
       <h2 className="save-news-header__title">
         {currentUser}, you have {`${articles?.length} saved articles`}
@@ -58,7 +58,7 @@ function SavedNewsHeader({ articles }) {
           {keywordString ? keywordString : ""}
         </span>
       </p>
-    </div>
+    </section>
   );
 }
 

@@ -28,13 +28,14 @@ function RegisterModal({
   return (
     <ModalWithForm
       title="Sign up"
-      name="singUp"
+      name="signup"
       onClose={handleCloseModal}
       isOpen={isOpen}
       buttonText={isLoading ? "Siging up..." : "Sign up"}
       altButtonText={altButtonText}
       handleAltClick={altClick}
       isFormValid={isFormValid}
+      onSubmit={onSignUp}
     >
       <label className="modal__label" id="email-label">
         Email

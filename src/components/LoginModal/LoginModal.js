@@ -4,8 +4,10 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
 
 function LoginModal({
+  values,
   isOpen,
   handleCloseModal,
+  onSignIn,
   isLoading,
   altButtonText,
   altClick,
@@ -14,6 +16,11 @@ function LoginModal({
     email: "",
     password: "",
   });
+
+  const handleSubmit = (evt) => {
+    onSignIn(values);
+    evt.preventDefault();
+  };
 
   React.useEffect(() => {
     if (Object.values(isInvalid).every((item) => item === false)) {
@@ -33,6 +40,7 @@ function LoginModal({
       altButtonText={altButtonText}
       handleAltClick={altClick}
       isFormValid={isFormValid}
+      onSubmit={handleSubmit}
     >
       <label className="modal__label" id="email-label">
         Email

@@ -12,7 +12,7 @@ function NewsCardList({
 }) {
   const match = useMatch("/");
   return (
-    <div className="cards">
+    <section className="cards">
       <div className="cards__container">
         {match && numberOfCards < articles?.length && (
           <h2 className="cards__container-title">{`Search Results: ${keyword}`}</h2>
@@ -40,7 +40,7 @@ function NewsCardList({
           Show More
         </button>
       )}
-    </div>
+    </section>
   );
 }
 

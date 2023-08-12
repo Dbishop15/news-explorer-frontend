@@ -3,7 +3,7 @@ import avatar from "../../images/avatar.svg";
 
 function About() {
   return (
-    <div className="about">
+    <section className="about">
       <img className="about__image" src={avatar} alt="avatar" />
       <div className="about__text">
         <h2 className="about__text-title">About the author</h2>
@@ -16,7 +16,7 @@ function About() {
           learned there, and how you can help potential customers.
         </p>
       </div>
-    </div>
+    </section>
   );
 }
 

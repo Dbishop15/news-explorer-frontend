@@ -2,17 +2,13 @@
   display: block;
 }
 .page__main {
+  width: 100%;
   border: 1px solid #000;
   background-image: url(/src/images/page_main_background.png);
   background-size: cover;
   background-repeat: no-repeat;
   border: none;
-}
-.page__main-loggedin {
-  border: 1px solid #000;
-  background-color: white;
-  color: #000;
-  border: none;
+  color: white;
 }
 @media screen and (max-width: 768px) {
   .page__main {

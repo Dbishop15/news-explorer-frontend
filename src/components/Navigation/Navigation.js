@@ -1,20 +1,29 @@
 import { NavLink } from "react-router-dom";
 import "./Navigation.css";
-import logout from "../../images/logout.svg";
+import logout from "../../images/logout-white.svg";
 
-function Navigation({ onLoginButton, isLoggedIn }) {
+function Navigation({ onLoginButton, isLoggedIn, onSignout }) {
   const renderAuthenticateContent = () => {
     return (
       <>
-        <NavLink to="/saved-news" className="nav__links-item">
+        <a href="/" className="nav__links-item-login">
+          Home
+        </a>
+        <NavLink to="/saved-news" className="nav__links-item-login">
           Saved Articles
         </NavLink>
         <div className="nav__links-item nav__links-item-user">
           <div type="text" className="nav__links-item-username">
             Elise
           </div>
-          <NavLink to="/" className="nav__links-item-loggedout">
-            {logout}
+          <NavLink to="/">
+            <button
+              className="nav__links-item-loggedout"
+              type="button"
+              onClick={onSignout}
+            >
+              <img src={logout} alt="log out" />
+            </button>
           </NavLink>
         </div>
       </>
@@ -24,6 +33,9 @@ function Navigation({ onLoginButton, isLoggedIn }) {
   const renderUnauthenticateContent = () => {
     return (
       <>
+        <a href="/" className="nav__links-item">
+          Home
+        </a>
         <button
           className="nav__links-button"
           type="button"
@@ -36,14 +48,11 @@ function Navigation({ onLoginButton, isLoggedIn }) {
   };
 
   return (
-    <div id="nav__links" className="nav__links nav__links-hidden">
-      <a href="/" className="nav__links-item">
-        Home
-      </a>
+    <nav id="nav__links" className="nav__links nav__links-hidden">
       {!isLoggedIn
         ? renderUnauthenticateContent()
         : renderAuthenticateContent()}
-    </div>
+    </nav>
   );
 }
 

@@ -1,0 +1,64 @@
+.confirm-modal__container {
+  max-width: 430px;
+  position: relative;
+  box-sizing: border-box;
+  margin: auto 16px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  color: #000000;
+}
+.confirm-modal__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: url(../../images/Iconclose.svg) center no-repeat;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  z-index: 3;
+}
+.confirm-modal__close:hover {
+  opacity: 0.6;
+  transition: all 0.3s ease-out;
+}
+.confirm-modal__title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28.13px;
+  margin: 34px 36px 0;
+}
+.confirm-modal__alt-button {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: #2f71e5;
+  background: none;
+  margin: 34px 36px;
+  border: 0;
+  padding-left: 5px;
+  cursor: url("../../images/hand.svg"), auto;
+}
+@media screen and (max-width: 540px) {
+  .confirm-modal__container {
+    max-width: 300px;
+  }
+  .confirm-modal__title {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .confirm-modal__close {
+    width: 24px;
+    height: 24px;
+    top: -40px;
+    right: 10px;
+    z-index: 999;
+  }
+}

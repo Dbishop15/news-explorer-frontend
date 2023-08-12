@@ -11,7 +11,7 @@ function ModalWithForm({
   handleAltClick,
 }) {
   return (
-    <div className={`modal modal__type_${name}`}>
+    <div className={`modal modal__type-${name}`}>
       <div className="modal__container">
         <button
           className="modal__close"

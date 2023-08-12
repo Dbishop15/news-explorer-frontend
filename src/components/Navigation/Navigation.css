@@ -17,7 +17,7 @@
   transition: opacity 0.5s ease-in-out;
   cursor: url("../../images/hand.svg"), auto;
 }
-.nav__links-item {
+.nav__links-item-login {
   text-decoration: none;
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 500;
@@ -30,14 +30,23 @@
   cursor: url("../../images/hand.svg"), auto;
 }
 .nav__links-item-user {
+  display: flex;
+  gap: 10px;
   width: 112px;
-  height: 48px;
-  border: 1px solid #1a1b22;
-  color: #1a1b22;
+  height: 10px;
+  margin: auto;
+  color: #ffffff;
+  border-radius: 100px;
+  border: 1px solid #ffffff;
+  align-items: center;
+  justify-content: space-around;
 }
 .nav__links-item-loggedout {
   width: 24px;
   height: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: url("../../images/hand.svg"), auto;
 }
 .nav__links-item_hidden {
   display: none;
@@ -59,6 +68,7 @@
   align-items: center;
   cursor: url("../../images/hand.svg"), auto;
 }
+
 @media screen and (max-width: 540px) {
   .nav__links-hidden {
     display: none;

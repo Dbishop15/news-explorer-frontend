@@ -10,7 +10,7 @@
   justify-content: flex-start;
 }
 .cards__container-title {
-  padding: 62px 84px;
+  margin: 60px 80px;
   font-family: "Roboto Slab", sans-serif;
   font-size: 40px;
   font-style: normal;
@@ -26,6 +26,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  padding-left: 0;
 }
 .cards__button {
   width: 288px;

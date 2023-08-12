@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./NewsCard.css";
 
-function NewsCard({ article, isLoggedIn }) {
+function NewsCard({ article, isLoggedIn, keyword, savedArticles }) {
   const [isVisible, setIsVisible] = useState(false);
 
   const saveHover = () => {
@@ -10,16 +10,38 @@ function NewsCard({ article, isLoggedIn }) {
     }
     setIsVisible(true);
   };
+  const trashHover = () => {
+    if (isLoggedIn) {
+      return;
+    }
+    setIsVisible(true);
+  };
   return (
     <li className="card">
-      <button className="card__trash-button" type="button"></button>
       <button
-        className="card__save-button"
+        className={`card__trash-button ${
+          savedArticles ? "" : "card__trash-button-hidden"
+        } `}
+        onMouseEnter={trashHover}
+        onMouseLeave={() => setIsVisible(false)}
+        type="button"
+      ></button>
+      <button
+        className={`card__save-button ${
+          savedArticles ? "card__save-button-hidden" : ""
+        } `}
         type="button"
         onMouseEnter={saveHover}
         onMouseLeave={() => setIsVisible(false)}
       ></button>
-      <button className="card__keyword-button" type="button"></button>
+      <button
+        className={`card__hover-text ${
+          isVisible ? "" : "card__hover-text-hidden"
+        } `}
+        type="button"
+      >
+        Remove from saved
+      </button>
       <button
         className={`card__hover-text ${
           isVisible ? "" : "card__hover-text-hidden"
@@ -27,6 +49,14 @@ function NewsCard({ article, isLoggedIn }) {
         type="button"
       >
         Sign in to save articles
+      </button>
+      <button
+        className={`card__keyword-button ${
+          savedArticles ? "" : "card__keyword-button-hidden"
+        } `}
+        type="button"
+      >
+        {keyword}
       </button>
       <a href={article.url} className="card__link">
         <img

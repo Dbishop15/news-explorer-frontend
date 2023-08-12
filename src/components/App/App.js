@@ -13,6 +13,7 @@ import { APIkey } from "../../utils/constants";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import Preloader from "../Preloader/Preloader";
 import MenuModal from "../MenuModal/MenuModal";
+import RegisterConfirmationModal from "../RegisterConfirmationModal/RegisterConfirmationModal";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -35,6 +36,9 @@ function App() {
   const handleMenuModal = () => {
     setActiveModal("menu");
   };
+  const handleRegisterConfirmationModal = () => {
+    setActiveModal("confirm");
+  };
   const handleCloseModal = () => {
     setActiveModal("");
   };
@@ -45,14 +49,32 @@ function App() {
       handleRegisterModal();
     }
     if (activeModal === "signup") {
+      handleRegisterConfirmationModal();
       handleCloseModal();
-      handleLoginModal();
     }
     if (activeModal === "menu") {
       handleCloseModal();
       handleMenuModal();
     }
+    if (activeModal === "confirm") {
+      handleCloseModal();
+      handleLoginModal();
+    }
   }
+  const handleSignUp = ({ email, password, name }) => {
+    setLoading(true);
+    handleRegisterConfirmationModal();
+  };
+  const handleSignIn = (values) => {
+    setLoading(true);
+    handleCloseModal();
+    setIsLoggedIn(true);
+  };
+  const handleSignOut = () => {
+    setIsLoggedIn(false);
+    setArticles(null);
+    setIsSearching(false);
+  };
 
   const handleSeeMoreArticles = () => {
     setNumberOfCards(numberOfCards + 3);
@@ -103,12 +125,13 @@ function App() {
   return (
     <>
       <div className="page">
-        <div className={!isLoggedIn ? "page__main" : "page__main-loggedin"}>
+        <div className="page__main">
           <Header
             onRegisterButton={handleRegisterModal}
             onLoginButton={handleLoginModal}
             isLoggedIn={isLoggedIn}
             handleMenuModal={handleMenuModal}
+            onSignout={handleSignOut}
           />
           <Routes>
             <Route
@@ -119,12 +142,19 @@ function App() {
                   searchBotton={searchBotton}
                   isSearching={isSearching}
                   isLoading={loading}
+                  isLoggedIn={isLoggedIn}
                 />
               }
             />
             <Route
               path="/saved-news"
-              element={<SavedNews articles={articles} />}
+              element={
+                <SavedNews
+                  articles={articles}
+                  isLoggedIn={isLoggedIn}
+                  keyword={keyword}
+                />
+              }
             />
           </Routes>
         </div>
@@ -150,6 +180,8 @@ function App() {
             buttonText="Sign up"
             altButtonText="Sign in"
             altClick={handleAltClick}
+            onSubmit={handleRegisterConfirmationModal}
+            onSignUp={handleSignUp}
             loading={loading}
           />
         )}
@@ -157,6 +189,7 @@ function App() {
           <LoginModal
             isOpen={handleLoginModal}
             onClose={handleCloseModal}
+            onSignIn={handleSignIn}
             handleCloseModal={handleCloseModal}
             buttonText="Sign in"
             altButtonText="Sign up"
@@ -171,6 +204,14 @@ function App() {
             handleCloseModal={handleCloseModal}
             onLoginButton={handleLoginModal}
             altClick={handleAltClick}
+          />
+        )}
+        {activeModal === "confirm" && (
+          <RegisterConfirmationModal
+            isOpen={handleRegisterConfirmationModal}
+            onClose={handleCloseModal}
+            handleCloseModal={handleCloseModal}
+            onLoginButton={handleLoginModal}
           />
         )}
       </div>
