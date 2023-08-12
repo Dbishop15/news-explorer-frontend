@@ -7,24 +7,39 @@ function Footer() {
     <footer className="footer">
       <p className="footer__title">©2023 Supersite, Powered by News API</p>
       <div className="footer__container">
-        <ul className="footer__container-content footer__container-content-links">
+        <ul className="footer__container-content footer__container-content-links ">
           <li className="footer__container-item">
             <a href="/" className="footer__container-link">
               Home
             </a>
           </li>
-          <a href="https://tripleten.com/" className="footer__container-link">
+          <a
+            href="https://tripleten.com/"
+            className="footer__container-link"
+            target="_blank"
+            rel="noreferrer"
+          >
             Practicum
           </a>
         </ul>
         <ul className="footer__container-content">
           <li>
-            <a href="https://github.com" className="footer__content-icon">
+            <a
+              href="https://github.com/Dbishop15"
+              className="footer__content-icon"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src={github} alt="github-icon" />
             </a>
           </li>
           <li>
-            <a href="https://facebook.com" className="footer__content-icon">
+            <a
+              href="https://facebook.com"
+              className="footer__content-icon"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src={facebook} alt="fb-icon" />
             </a>
           </li>

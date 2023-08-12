@@ -81,6 +81,15 @@
   border: 0;
   cursor: url("../../images/hand.svg"), auto;
 }
+
+.card__hover-text-hidden {
+  visibility: hidden;
+}
+.card__hover-text_active {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.5s;
+}
 .card__hover-text-hidden {
   display: none;
 }
@@ -152,9 +161,9 @@
   white-space: nowrap;
 }
 
-@media screen and (max-width: 1204px) {
+@media screen and (max-width: 1254px) {
   .card {
-    width: 300px;
+    width: 240px;
   }
   .card__image {
     height: 200px;

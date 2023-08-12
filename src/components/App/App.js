@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useMatch } from "react-router-dom";
+import { Route, Routes, useNavigate, useMatch } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -25,6 +25,7 @@ function App() {
   const [nothingFound, setNothingFound] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const navigate = useNavigate();
   const match = useMatch("/");
 
   const handleRegisterModal = () => {
@@ -74,6 +75,7 @@ function App() {
     setIsLoggedIn(false);
     setArticles(null);
     setIsSearching(false);
+    navigate("/");
   };
 
   const handleSeeMoreArticles = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import "../NewsCardList/NewsCardList.css";
@@ -8,14 +8,18 @@ import cardsample1 from "../../images/card-sample1.png";
 import cardsample2 from "../../images/card-sample2.png";
 import cardsample3 from "../../images/card-sample3.png";
 
-function SavedNews({ articles, keyword, isLoggedIn, savedArticles }) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const trashHover = () => {
-    if (!isLoggedIn) {
-      return;
+function SavedNews({ articles, savedArticles }) {
+  const handleMouseEnter = (evt) => {
+    if (evt.target.classList.contains("card__trash-button")) {
+      evt.target.parentElement
+        .querySelector(".card__hover-text")
+        .classList.remove("card__hover-text-hidden");
     }
-    setIsVisible(true);
+  };
+  const handleMouseLeave = (evt) => {
+    evt.target.parentElement
+      .querySelector(".card__hover-text")
+      .classList.add("card__hover-text-hidden");
   };
   return (
     <section className="save-news">
@@ -27,11 +31,9 @@ function SavedNews({ articles, keyword, isLoggedIn, savedArticles }) {
           <ul className="cards__container-list">
             <li className="card">
               <button
-                className={`card__trash-button ${
-                  !savedArticles ? "" : "card__trash-button-hidden"
-                } `}
-                onMouseEnter={trashHover}
-                onMouseLeave={() => setIsVisible(false)}
+                className="card__trash-button"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 type="button"
               ></button>
               <button
@@ -42,14 +44,14 @@ function SavedNews({ articles, keyword, isLoggedIn, savedArticles }) {
               >
                 Flower
               </button>
+
               <button
-                className={`card__hover-text ${
-                  isVisible ? "" : "card__hover-text-hidden"
-                } `}
+                className="card__hover-text card__hover-text-hidden"
                 type="button"
               >
                 Remove from saved
               </button>
+
               <a
                 href="https://www.theguardian.com/commentisfree/2023/aug/07/email-dread-pigeons-message-inbox"
                 className="card__link"
@@ -76,11 +78,9 @@ function SavedNews({ articles, keyword, isLoggedIn, savedArticles }) {
             </li>
             <li className="card">
               <button
-                className={`card__trash-button ${
-                  !savedArticles ? "" : "ard__trash-button-hidden"
-                } `}
-                onMouseEnter={trashHover}
-                onMouseLeave={() => setIsVisible(false)}
+                className="card__trash-button"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 type="button"
               ></button>
               <button
@@ -92,13 +92,12 @@ function SavedNews({ articles, keyword, isLoggedIn, savedArticles }) {
                 Flower
               </button>
               <button
-                className={`card__hover-text ${
-                  isVisible ? "" : "card__hover-text-hidden"
-                } `}
+                className="card__hover-text card__hover-text-hidden"
                 type="button"
               >
                 Remove from saved
               </button>
+
               <a
                 href="https://www.businessinsider.com/doordash-non-restaurant-retail-deliveries-increase-groceries-flowers-2023-8"
                 className="card__link"
@@ -122,11 +121,9 @@ function SavedNews({ articles, keyword, isLoggedIn, savedArticles }) {
             </li>
             <li className="card">
               <button
-                className={`card__trash-button ${
-                  !savedArticles ? "" : "card__trash-button-hidden"
-                } `}
-                onMouseEnter={trashHover}
-                onMouseLeave={() => setIsVisible(false)}
+                className="card__trash-button"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 type="button"
               ></button>
               <button
@@ -138,9 +135,7 @@ function SavedNews({ articles, keyword, isLoggedIn, savedArticles }) {
                 Flower
               </button>
               <button
-                className={`card__hover-text ${
-                  isVisible ? "" : "card__hover-text-hidden"
-                } `}
+                className="card__hover-text card__hover-text-hidden"
                 type="button"
               >
                 Remove from saved
