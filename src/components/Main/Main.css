@@ -1,0 +1,42 @@
+.main__container {
+  margin-top: 80px;
+  text-align: center;
+}
+.main__container-title {
+  font-family: "Roboto Slab", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 64px;
+  max-width: 608px;
+  text-align: left;
+  margin: 0 auto 32px;
+}
+.main__container-subtitle {
+  font-family: " Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 100px;
+}
+@media screen and (max-width: 660px) {
+  .main__container {
+    margin: 60px 30px 0;
+  }
+  .main__container-subtitle {
+    text-align: left;
+  }
+}
+@media screen and (max-width: 540px) {
+  .main__container {
+    margin: 0 16px;
+    text-align: center;
+  }
+  .main__container-title {
+    margin: 30px 0 16px;
+    text-align: left;
+    font-size: 36px;
+    line-height: 40px;
+  }
+}
