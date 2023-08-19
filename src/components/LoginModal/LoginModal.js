@@ -1,34 +1,70 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../ModalWithForm/ModalWithForm.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useForm } from "../../hooks/useForm";
 
 function LoginModal({
-  values,
   isOpen,
   handleCloseModal,
-  onSignIn,
+  handleSignIn,
   isLoading,
   altButtonText,
   altClick,
 }) {
-  const { handleChange, isFormValid, setIsFormValid, isInvalid } = useForm({
+  const {
+    values,
+    handleChange,
+    setValues,
+    isFormValid,
+    setIsFormValid,
+    isInvalid,
+  } = useForm({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (evt) => {
-    onSignIn(values);
-    evt.preventDefault();
-  };
+  useEffect(() => {
+    if (isOpen === true) {
+      setValues({
+        email: "",
+        password: "",
+      });
+    }
+  }, [isOpen, setValues]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (Object.values(isInvalid).every((item) => item === false)) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
     }
   }, [isInvalid, setIsFormValid]);
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    handleSignIn(values);
+  };
+
+  // const [email, setEmail] = useState("");
+  // const handleEmailChange = (e) => {
+  //   setEmail(e.target.value);
+  // };
+  // const [password, setPassword] = useState("");
+  // const handlePasswordChange = (e) => {
+  //   setPassword(e.target.value);
+  // };
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   onSignIn({ email, password });
+  // }
+
+  // useEffect(() => {
+  //   if (isOpen === true) {
+  //     setEmail("");
+  //     setPassword("");
+  //   }
+  // }, [isOpen]);
 
   return (
     <ModalWithForm
@@ -52,6 +88,7 @@ function LoginModal({
         className="modal__input modal__input_type_login-emial"
         placeholder="Enter email"
         required
+        // onChange={handleEmailChange}
         onChange={handleChange}
       />
       {isInvalid.email && (
@@ -70,6 +107,7 @@ function LoginModal({
         className="modal__input modal__input_type_login-password"
         placeholder="Enter password"
         required
+        // onChange={handlePasswordChange}
         onChange={handleChange}
       />
       {isInvalid.password && (

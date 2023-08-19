@@ -6,7 +6,7 @@
   list-style: none;
   margin-bottom: 20px;
 }
-.card__save-button {
+.card__button {
   width: 40px;
   height: 40px;
   border-radius: 8px;
@@ -16,40 +16,29 @@
   right: 24px;
   z-index: 2;
   background-color: #fff;
-  background-image: url(../../images/save-icon.svg);
   background-position: 50%;
   background-repeat: no-repeat;
   cursor: url("../../images/hand.svg"), auto;
 }
-.card__save-button:hover {
+.card__button-save {
+  background-image: url(../../images/save-icon.svg);
+}
+.card__button-save:hover {
   background-image: url(../../images/save-hover-icon.svg);
 }
-.card__save-button:active {
+.card__button-save_active {
   background-image: url(../../images/save-active-icon.svg);
 }
-.card__save-button-hidden {
+.card__button-save_hidden {
   display: none;
 }
-.card__trash-button {
-  border: 0;
-  background-color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  border: none;
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  z-index: 2;
+.card__button-trash {
   background-image: url(../../images/trash.svg);
-  background-position: 50%;
-  background-repeat: no-repeat;
-  cursor: url("../../images/hand.svg"), auto;
 }
-.card__trash-button:hover {
+.card__button-trash:hover {
   background-image: url(../../images/trash-hover.svg);
 }
-.card__trash-button-hidden {
+.card__button-trash-hidden {
   display: none;
 }
 .card__keyword-button {
@@ -62,12 +51,13 @@
   border-radius: 10px;
   height: 40px;
   border: 0;
-  z-index: 2;
+  z-index: 1;
 }
 .card__keyword-button-hidden {
   display: none;
 }
 .card__hover-text {
+  visibility: hidden;
   position: absolute;
   top: 24px;
   right: 80px;
@@ -148,7 +138,7 @@
   max-width: 100%;
   padding-left: 24px;
   display: inline-block;
-  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+  font-family: "Roboto Slab", sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
@@ -163,7 +153,8 @@
 
 @media screen and (max-width: 1254px) {
   .card {
-    width: 240px;
+    width: 280px;
+    margin: 10px;
   }
   .card__image {
     height: 200px;
@@ -172,7 +163,13 @@
     width: 130px;
   }
 }
-
+@media screen and (max-width: 934px) {
+  .card {
+    width: 240px;
+    margin: 10px;
+    margin: 0;
+  }
+}
 @media screen and (max-width: 768px) {
   .card {
     width: 224px;

@@ -1,10 +1,11 @@
 import "./SavedNewsHeader.css";
 
-function SavedNewsHeader({ articles }) {
+function SavedNewsHeader({ savedNewsArticles }) {
   let currentUser = "Elis";
 
-  const keywords = articles?.map((article) => article.keyword);
+  const keywords = savedNewsArticles?.map((article) => article?.keyword);
 
+  console.log(savedNewsArticles);
   const getKeywordString = (data) => {
     if (keywords?.length === 1) {
       return `${keywords[0]}`;
@@ -45,12 +46,13 @@ function SavedNewsHeader({ articles }) {
   };
 
   const keywordString = getKeywordString(keywords);
+  console.log(keywordString);
 
   return (
     <section className="save-news-header">
       <p className="save-news-header__text-head">Saved articles</p>
       <h2 className="save-news-header__title">
-        {currentUser}, you have {`${articles?.length} saved articles`}
+        {currentUser}, you have {`${savedNewsArticles?.length} saved articles`}
       </h2>
       <p className="save-news-header__text">
         By keywords:{" "}
