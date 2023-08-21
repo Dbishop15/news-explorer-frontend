@@ -14,16 +14,20 @@ import NewsCardList from "../NewsCardList/NewsCardList";
 import Preloader from "../Preloader/Preloader";
 import MenuModal from "../MenuModal/MenuModal";
 import RegisterConfirmationModal from "../RegisterConfirmationModal/RegisterConfirmationModal";
+import * as auth from "../../utils/auth";
+import * as api from "../../utils/api";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [numberOfCards, setNumberOfCards] = useState(3);
-  const [articles, setArticles] = useState(null);
+  const [newsArticles, setNewsArticles] = useState(null);
   const [keyword, setKeyword] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [nothingFound, setNothingFound] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState("");
+  const [savedNewsArticles, setSavedNewsArticles] = useState([]);
 
   const navigate = useNavigate();
   const match = useMatch("/");
@@ -62,20 +66,86 @@ function App() {
       handleLoginModal();
     }
   }
-  const handleSignUp = ({ email, password, name }) => {
-    setLoading(true);
-    handleRegisterConfirmationModal();
+
+  const handleSignUp = (inputValues) => {
+    setIsLoading(true);
+    auth
+      .signUp(inputValues)
+      .then((res) => {
+        if (res) {
+          handleRegisterConfirmationModal();
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
-  const handleSignIn = (values) => {
-    setLoading(true);
-    handleCloseModal();
-    setIsLoggedIn(true);
+  const handleSignIn = (inputValues) => {
+    setIsLoading(true);
+    auth
+      .signIn(inputValues)
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        if (data.token) {
+          return auth.checkToken(data.token);
+        }
+      })
+      .then((res) => {
+        const data = res.data;
+        getUserArticles(data.token);
+        handleCloseModal();
+        setIsLoggedIn(true);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   const handleSignOut = () => {
+    localStorage.removeItem("jwt");
     setIsLoggedIn(false);
-    setArticles(null);
+    setNewsArticles("");
     setIsSearching(false);
     navigate("/");
+    localStorage.clear();
+  };
+
+  const handleSaveArticle = (card) => {
+    api
+      .saveArticle(card, token)
+      .then((res) => {
+        setSavedNewsArticles([res.data, ...savedNewsArticles]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getUserArticles = (token) => {
+    api
+      .getArticles(token)
+      .then((data) => {
+        setSavedNewsArticles(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDeleteArticle = (articleId) => {
+    api
+      .deleteArticle(articleId, token)
+      .then(() => {
+        const filteredCards = savedNewsArticles.filter(
+          (article) => articleId !== article._id
+        );
+        setSavedNewsArticles(filteredCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleSeeMoreArticles = () => {
@@ -86,23 +156,23 @@ function App() {
     const keyword = data.charAt(0).toUpperCase() + data.slice(1);
     setNumberOfCards(3);
     setKeyword(keyword);
-    setArticles(null);
-    setLoading(true);
+    setNewsArticles(null);
+    setIsLoading(true);
     setNothingFound(false);
     setIsSearching(true);
     getNewsApi({ APIkey, keyword })
       .then((data) => {
-        setLoading(false);
+        setIsLoading(false);
         if (data.articles.length === 0) {
           setNothingFound(true);
         } else {
           const articles = data.articles.map(
             (article) => (article = { ...article, _id: Math.random() })
           );
-          setArticles(articles);
+          setNewsArticles(articles);
           setIsSearching(false);
-          // localStorage.setItem("articles", JSON.stringify(articles));
-          // localStorage.setItem("keyword", keyword);
+          localStorage.setItem("articles", JSON.stringify(articles));
+          localStorage.setItem("keyword", keyword);
         }
       })
       .catch((err) => {
@@ -124,6 +194,28 @@ function App() {
     };
   }, [activeModal]);
 
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          setToken(jwt);
+          setIsLoggedIn(true);
+          handleCloseModal();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (localStorage.getItem("articles")) {
+      setNewsArticles(JSON.parse(localStorage.getItem("articles")));
+      setKeyword(localStorage.getItem("keyword"));
+    }
+  }, []);
   return (
     <>
       <div className="page">
@@ -143,7 +235,6 @@ function App() {
                 <Main
                   searchBotton={searchBotton}
                   isSearching={isSearching}
-                  isLoading={loading}
                   isLoggedIn={isLoggedIn}
                 />
               }
@@ -152,9 +243,14 @@ function App() {
               path="/saved-news"
               element={
                 <SavedNews
-                  articles={articles}
+                  savedNewsArticles={savedNewsArticles}
                   isLoggedIn={isLoggedIn}
                   keyword={keyword}
+                  token={token}
+                  handleSaveArticle={handleSaveArticle}
+                  handleDeleteArticle={handleDeleteArticle}
+                  numberOfCards={numberOfCards}
+                  handleSeeMoreArticles={handleSeeMoreArticles}
                 />
               }
             />
@@ -163,13 +259,15 @@ function App() {
         {isSearching && (
           <Preloader isSearching={isSearching} nothingFound={nothingFound} />
         )}
-        {articles && match && (
+        {newsArticles && match && (
           <NewsCardList
             keyword={keyword}
             numberOfCards={numberOfCards}
-            articles={articles}
+            newsArticles={newsArticles}
             handleSeeMoreArticles={handleSeeMoreArticles}
             isLoggedIn={isLoggedIn}
+            handleSaveArticle={handleSaveArticle}
+            handleDeleteArticle={handleDeleteArticle}
           />
         )}
         {match && <About />}
@@ -182,21 +280,20 @@ function App() {
             buttonText="Sign up"
             altButtonText="Sign in"
             altClick={handleAltClick}
-            onSubmit={handleRegisterConfirmationModal}
-            onSignUp={handleSignUp}
-            loading={loading}
+            handleSignUp={handleSignUp}
+            isLoading={isLoading}
           />
         )}
         {activeModal === "signin" && (
           <LoginModal
             isOpen={handleLoginModal}
             onClose={handleCloseModal}
-            onSignIn={handleSignIn}
+            handleSignIn={handleSignIn}
             handleCloseModal={handleCloseModal}
             buttonText="Sign in"
             altButtonText="Sign up"
             altClick={handleAltClick}
-            loading={loading}
+            isLoading={isLoading}
           />
         )}
         {activeModal === "menu" && (

@@ -5,33 +5,39 @@ import NewsCard from "../NewsCard/NewsCard";
 
 function NewsCardList({
   keyword,
-  articles,
+  newsArticles,
   numberOfCards,
   handleSeeMoreArticles,
   isLoggedIn,
+  handleSaveArticle,
+  handleDeleteArticle,
+  savedNewsArticles,
 }) {
   const match = useMatch("/");
   return (
     <section className="cards">
       <div className="cards__container">
-        {match && numberOfCards < articles?.length && (
+        {match && numberOfCards < newsArticles?.length && (
           <h2 className="cards__container-title">{`Search Results: ${keyword}`}</h2>
         )}
         <ul className="cards__container-list">
-          {articles?.slice(0, numberOfCards).map((article) => {
+          {newsArticles.slice(0, numberOfCards).map((article) => {
+            console.log(article);
             return (
               <NewsCard
                 keyword={keyword}
-                key={article._id}
-                article={article}
+                key={article?._id}
+                cardInfo={article}
                 numberOfCards={numberOfCards}
                 isLoggedIn={isLoggedIn}
+                handleSaveArticle={handleSaveArticle}
+                handleDeleteArticle={handleDeleteArticle}
               />
             );
           })}
         </ul>
       </div>
-      {match && numberOfCards < articles?.length && (
+      {match && numberOfCards < newsArticles?.length && (
         <button
           type="button"
           className="cards__button"

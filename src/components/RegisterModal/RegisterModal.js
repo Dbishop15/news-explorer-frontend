@@ -5,17 +5,34 @@ import { useForm } from "../../hooks/useForm";
 
 function RegisterModal({
   isOpen,
-  onSignUp,
+  handleSignUp,
   handleCloseModal,
   isLoading,
   altButtonText,
   altClick,
 }) {
-  const { handleChange, isFormValid, setIsFormValid, isInvalid } = useForm({
+  const {
+    values,
+    handleChange,
+    setValues,
+    isFormValid,
+    setIsFormValid,
+    isInvalid,
+  } = useForm({
     email: "",
     password: "",
     name: "",
   });
+
+  useEffect(() => {
+    if (isOpen === true) {
+      setValues({
+        email: "",
+        password: "",
+        name: "",
+      });
+    }
+  }, [isOpen, setValues]);
 
   useEffect(() => {
     if (Object.values(isInvalid).every((item) => item === false)) {
@@ -24,6 +41,42 @@ function RegisterModal({
       setIsFormValid(false);
     }
   }, [isInvalid, setIsFormValid]);
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    handleSignUp(values);
+  };
+
+  // const [email, setEmail] = useState("");
+  // const handleEmailChange = (e) => {
+  //   console.log(e.target.value);
+  //   setEmail(e.target.value);
+  // };
+
+  // const [password, setPassword] = useState("");
+  // const handlePasswordChange = (e) => {
+  //   console.log(e.target.value);
+  //   setPassword(e.target.value);
+  // };
+
+  // const [name, setName] = useState("");
+  // const handleNameChange = (e) => {
+  //   console.log(e.target.value);
+  //   setName(e.target.value);
+  // };
+
+  // function handleSubmit(evt) {
+  //   evt.preventDefault();
+  //   onSignUp({ email, password, name });
+  // }
+
+  // useEffect(() => {
+  //   if (isOpen === true) {
+  //     setEmail("");
+  //     setPassword("");
+  //     setName("");
+  //   }
+  // }, [isOpen]);
 
   return (
     <ModalWithForm
@@ -35,7 +88,7 @@ function RegisterModal({
       altButtonText={altButtonText}
       handleAltClick={altClick}
       isFormValid={isFormValid}
-      onSubmit={onSignUp}
+      onSubmit={handleSubmit}
     >
       <label className="modal__label" id="email-label">
         Email
@@ -49,6 +102,7 @@ function RegisterModal({
         minLength="1"
         maxLength="30"
         required
+        // onChange={handleEmailChange}
         onChange={handleChange}
       />
       {isInvalid.email && (
@@ -69,6 +123,7 @@ function RegisterModal({
         minLength="3"
         maxLength="30"
         required
+        // onChange={handlePasswordChange}
         onChange={handleChange}
       />
       {isInvalid.password && (
@@ -90,6 +145,7 @@ function RegisterModal({
         minLength="1"
         maxLength="30"
         required
+        // onChange={handleNameChange}
         onChange={handleChange}
       />
       {isInvalid.name && (

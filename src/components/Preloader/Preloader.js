@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Preloader.css";
 import NoResults from "./NoResults";
 import ResultErrors from "./ResultErrors";
