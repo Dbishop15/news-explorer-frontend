@@ -74,7 +74,6 @@ function App() {
       .then((res) => {
         if (res) {
           handleRegisterConfirmationModal();
-          // setIsLoggedIn(true);
         }
       })
       .catch((err) => console.log(err))
