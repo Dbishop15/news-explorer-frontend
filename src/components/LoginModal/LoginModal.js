@@ -45,27 +45,6 @@ function LoginModal({
     handleSignIn(values);
   };
 
-  // const [email, setEmail] = useState("");
-  // const handleEmailChange = (e) => {
-  //   setEmail(e.target.value);
-  // };
-  // const [password, setPassword] = useState("");
-  // const handlePasswordChange = (e) => {
-  //   setPassword(e.target.value);
-  // };
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   onSignIn({ email, password });
-  // }
-
-  // useEffect(() => {
-  //   if (isOpen === true) {
-  //     setEmail("");
-  //     setPassword("");
-  //   }
-  // }, [isOpen]);
-
   return (
     <ModalWithForm
       title="Sign in"
@@ -88,7 +67,6 @@ function LoginModal({
         className="modal__input modal__input_type_login-emial"
         placeholder="Enter email"
         required
-        // onChange={handleEmailChange}
         onChange={handleChange}
       />
       {isInvalid.email && (
@@ -107,7 +85,6 @@ function LoginModal({
         className="modal__input modal__input_type_login-password"
         placeholder="Enter password"
         required
-        // onChange={handlePasswordChange}
         onChange={handleChange}
       />
       {isInvalid.password && (

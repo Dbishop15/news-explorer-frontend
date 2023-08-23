@@ -2,16 +2,14 @@ import "./SavedNewsHeader.css";
 
 function SavedNewsHeader({ savedNewsArticles }) {
   let currentUser = "Elis";
+  const keywords = savedNewsArticles.map((article) => article.keyword);
 
-  const keywords = savedNewsArticles?.map((article) => article?.keyword);
-
-  console.log(savedNewsArticles);
   const getKeywordString = (data) => {
-    if (keywords?.length === 1) {
+    if (keywords.length === 1) {
       return `${keywords[0]}`;
     }
 
-    if (keywords?.length > 1) {
+    if (keywords.length > 1) {
       const count = {};
 
       for (const keyword of data) {
@@ -46,20 +44,19 @@ function SavedNewsHeader({ savedNewsArticles }) {
   };
 
   const keywordString = getKeywordString(keywords);
-  console.log(keywordString);
 
   return (
     <section className="save-news-header">
       <p className="save-news-header__text-head">Saved articles</p>
       <h2 className="save-news-header__title">
-        {currentUser}, you have {`${savedNewsArticles?.length} saved articles`}
+        {currentUser}, you have {`${savedNewsArticles.length} saved articles`}
+        <p className="save-news-header__text">
+          By keywords:{" "}
+          <span className="saved-news-header__keywords_bold">
+            {keywordString ? keywordString : ""}
+          </span>{" "}
+        </p>
       </h2>
-      <p className="save-news-header__text">
-        By keywords:{" "}
-        <span className="saved-news-header__keywords_bold">
-          {keywordString ? keywordString : ""}
-        </span>
-      </p>
     </section>
   );
 }

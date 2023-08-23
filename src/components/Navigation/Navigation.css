@@ -60,7 +60,6 @@
 .nav__links-item-user {
   display: flex;
   gap: 10px;
-  /* width: 112px; */
   height: 10px;
   margin: auto;
   color: #ffffff;
