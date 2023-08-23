@@ -14,7 +14,6 @@ export const saveArticle = (
   return fetch(`${baseUrl}/articles`, {
     method: "POST",
     headers: {
-      // Accept: "application/json",
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
@@ -34,13 +33,13 @@ export const getArticles = (token) => {
   return fetch(`${baseUrl}/articles`, {
     method: "GET",
     headers: {
-      // Accept: "application/json",
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
   })
     .then(checkResponse)
     .then((data) => {
+      console.log(data);
       return data;
     });
 };
@@ -49,7 +48,6 @@ export const deleteArticle = (articleId, token) => {
   return fetch(`${baseUrl}/articles/${articleId}`, {
     method: "DELETE",
     headers: {
-      // Accept: "application/json",
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },

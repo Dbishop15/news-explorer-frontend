@@ -13,10 +13,7 @@ function SavedNews({
 }) {
   return (
     <section className="save-news">
-      <SavedNewsHeader
-        savedNewsArticles={savedNewsArticles}
-        keyword={keyword}
-      />
+      <SavedNewsHeader savedNewsArticles={savedNewsArticles} />
       <NewsCardList
         newsArticles={savedNewsArticles}
         isLoggedIn={isLoggedIn}

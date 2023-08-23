@@ -11,7 +11,6 @@ function NewsCardList({
   isLoggedIn,
   handleSaveArticle,
   handleDeleteArticle,
-  savedNewsArticles,
 }) {
   const match = useMatch("/");
   return (

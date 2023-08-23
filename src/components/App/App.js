@@ -71,10 +71,8 @@ function App() {
     setIsLoading(true);
     auth
       .signUp(inputValues)
-      .then((res) => {
-        if (res) {
-          handleRegisterConfirmationModal();
-        }
+      .then(() => {
+        handleRegisterConfirmationModal();
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -87,13 +85,12 @@ function App() {
       .signIn(inputValues)
       .then((data) => {
         localStorage.setItem("jwt", data.token);
+        getUserArticles(data.token);
         if (data.token) {
           return auth.checkToken(data.token);
         }
       })
-      .then((res) => {
-        const data = res.data;
-        getUserArticles(data.token);
+      .then(() => {
         handleCloseModal();
         setIsLoggedIn(true);
       })
@@ -105,8 +102,6 @@ function App() {
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
-    setNewsArticles("");
-    setIsSearching(false);
     navigate("/");
     localStorage.clear();
   };
@@ -114,8 +109,10 @@ function App() {
   const handleSaveArticle = (card) => {
     api
       .saveArticle(card, token)
-      .then((res) => {
-        setSavedNewsArticles([res.data, ...savedNewsArticles]);
+      .then((data) => {
+        setSavedNewsArticles([...savedNewsArticles, data.data]);
+        console.log(savedNewsArticles);
+        console.log(data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -126,8 +123,8 @@ function App() {
     api
       .getArticles(token)
       .then((data) => {
-        setSavedNewsArticles(data);
-        console.log(data);
+        setSavedNewsArticles(data.data);
+        console.log(data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -153,10 +150,10 @@ function App() {
   };
 
   const searchBotton = (data) => {
-    const keyword = data.charAt(0).toUpperCase() + data.slice(1);
+    const keyword =
+      data.charAt(0).toUpperCase() + data.replace(/ .*/, "").slice(1);
     setNumberOfCards(3);
     setKeyword(keyword);
-    setNewsArticles(null);
     setIsLoading(true);
     setNothingFound(false);
     setIsSearching(true);
@@ -166,12 +163,9 @@ function App() {
         if (data.articles.length === 0) {
           setNothingFound(true);
         } else {
-          const articles = data.articles.map(
-            (article) => (article = { ...article, _id: Math.random() })
-          );
-          setNewsArticles(articles);
+          setNewsArticles(data.articles);
           setIsSearching(false);
-          localStorage.setItem("articles", JSON.stringify(articles));
+          localStorage.setItem("articles", JSON.stringify(data.articles));
           localStorage.setItem("keyword", keyword);
         }
       })
@@ -199,8 +193,9 @@ function App() {
     if (jwt) {
       auth
         .checkToken(jwt)
-        .then((res) => {
+        .then(() => {
           setToken(jwt);
+          getUserArticles(token);
           setIsLoggedIn(true);
           handleCloseModal();
         })
@@ -245,9 +240,6 @@ function App() {
                 <SavedNews
                   savedNewsArticles={savedNewsArticles}
                   isLoggedIn={isLoggedIn}
-                  keyword={keyword}
-                  token={token}
-                  handleSaveArticle={handleSaveArticle}
                   handleDeleteArticle={handleDeleteArticle}
                   numberOfCards={numberOfCards}
                   handleSeeMoreArticles={handleSeeMoreArticles}

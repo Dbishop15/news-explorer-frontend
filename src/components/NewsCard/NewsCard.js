@@ -96,7 +96,7 @@ function NewsCard({
         }
         type="button"
       >
-        {keyword}
+        {cardInfo.keyword}
       </button>
       <a
         href={card?.link}
