@@ -32,10 +32,10 @@
   transition: opacity 0.4s;
 }
 .menu-modal__links {
-  padding: 0;
-  display: block;
-  z-index: 5;
-  width: 100vw;
+  /* padding: 0;
+  display: block; */
+  /* z-index: 5; */
+  width: 100%;
   position: fixed;
   font-style: normal;
   font-weight: 500;
@@ -51,7 +51,7 @@
   line-height: 24px;
   color: #ffffff;
   margin: 0 auto;
-  padding: 26px;
+  padding: 20px 26px 10px;
   transition: opacity 0.5s ease-in-out;
   cursor: url("../../images/hand.svg"), auto;
 }
@@ -70,5 +70,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: url("../../images/hand.svg"), auto;
+}
+.menu-modal__links-item-user {
+  display: flex;
+  width: 50%;
+  color: #ffffff;
+  border-radius: 100px;
+  border: 1px solid #ffffff;
+  align-items: center;
+  padding: 5px;
+  justify-content: space-around;
+}
+.menu-modal__links-item-username {
+  border: none;
+}
+.menu-modal__link-loggedout {
+  width: 24px;
+  height: 24px;
+}
+.menu-modal__links-item-loggedout {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
   cursor: url("../../images/hand.svg"), auto;
 }

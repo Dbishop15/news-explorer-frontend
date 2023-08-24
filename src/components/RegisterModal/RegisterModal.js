@@ -58,6 +58,7 @@ function RegisterModal({
       handleAltClick={altClick}
       isFormValid={isFormValid}
       onSubmit={handleSubmit}
+      isValid={isFormValid}
     >
       <label className="modal__label" id="email-label">
         Email

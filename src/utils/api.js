@@ -39,7 +39,6 @@ export const getArticles = (token) => {
   })
     .then(checkResponse)
     .then((data) => {
-      console.log(data);
       return data;
     });
 };

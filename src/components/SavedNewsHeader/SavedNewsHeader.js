@@ -1,7 +1,10 @@
+import React, { useContext } from "react";
 import "./SavedNewsHeader.css";
+import CurrentUserContext from "../../hooks/CurrentUserContext";
 
 function SavedNewsHeader({ savedNewsArticles }) {
-  let currentUser = "Elis";
+  const { currentUser } = useContext(CurrentUserContext);
+
   const keywords = savedNewsArticles.map((article) => article.keyword);
 
   const getKeywordString = (data) => {
@@ -49,7 +52,8 @@ function SavedNewsHeader({ savedNewsArticles }) {
     <section className="save-news-header">
       <p className="save-news-header__text-head">Saved articles</p>
       <h2 className="save-news-header__title">
-        {currentUser}, you have {`${savedNewsArticles.length} saved articles`}
+        {currentUser.name}, you have{" "}
+        {`${savedNewsArticles.length} saved articles`}
         <p className="save-news-header__text">
           By keywords:{" "}
           <span className="saved-news-header__keywords_bold">

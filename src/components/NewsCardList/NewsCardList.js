@@ -21,7 +21,6 @@ function NewsCardList({
         )}
         <ul className="cards__container-list">
           {newsArticles.slice(0, numberOfCards).map((article) => {
-            console.log(article);
             return (
               <NewsCard
                 keyword={keyword}
