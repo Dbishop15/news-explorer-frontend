@@ -6,7 +6,7 @@ import logoutblack from "../../images/logout.svg";
 import { useMatch } from "react-router-dom";
 import CurrentUserContext from "../../hooks/CurrentUserContext";
 
-function Navigation({ onLoginButton, isLoggedIn, onSignout }) {
+function Navigation({ onLoginButton, isLoggedIn, onSignout, handleHomeClick }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const match = useMatch("/");
@@ -59,9 +59,9 @@ function Navigation({ onLoginButton, isLoggedIn, onSignout }) {
   const renderUnauthenticateContent = () => {
     return (
       <>
-        <a href="/" className="nav__links-item">
+        <NavLink to="/" className="nav__links-item">
           Home
-        </a>
+        </NavLink>
         <button
           className="nav__links-button"
           type="button"

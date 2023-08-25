@@ -12,6 +12,7 @@ function NewsCardList({
   handleSaveArticle,
   handleDeleteArticle,
   handleLoginModal,
+  savedNewsArticles,
 }) {
   const match = useMatch("/");
   return (
@@ -32,6 +33,7 @@ function NewsCardList({
                 handleSaveArticle={handleSaveArticle}
                 handleDeleteArticle={handleDeleteArticle}
                 handleLoginModal={handleLoginModal}
+                savedNewsArticles={savedNewsArticles}
               />
             );
           })}

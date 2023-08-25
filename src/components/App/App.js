@@ -32,6 +32,7 @@ function App() {
   const [savedNewsArticles, setSavedNewsArticles] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [isCheckingToken, setIsCheckingToken] = useState(true);
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
 
   const navigate = useNavigate();
   const match = useMatch("/");
@@ -106,6 +107,7 @@ function App() {
       });
   };
   const handleSignOut = () => {
+    setNewsArticles(null);
     localStorage.removeItem("jwt");
     setCurrentUser(null);
     setIsLoggedIn(false);
@@ -119,6 +121,7 @@ function App() {
       .saveArticle(card, token)
       .then((data) => {
         setSavedNewsArticles([data.data, ...savedNewsArticles]);
+        setSelectedArticleId(data.data._id);
       })
       .catch((err) => {
         console.log(err);
@@ -136,19 +139,31 @@ function App() {
       });
   };
 
-  const handleDeleteArticle = (articleId) => {
+  const handleDeleteArticle = (card) => {
     const token = localStorage.getItem("jwt");
-    api
-      .deleteArticle(articleId, token)
-      .then(() => {
-        const filteredCards = savedNewsArticles.filter(
-          (article) => articleId !== article._id
-        );
-        setSavedNewsArticles(filteredCards);
-      })
-      .catch((err) => {
-        console.log(err);
+    api.getArticles(token).then((data) => {
+      const filterArticleId = data.data.some((article) => {
+        return article.link === card.link;
       });
+      const deleteArticle = filterArticleId
+        ? data.data.find((article) => {
+            return article.link === card.link;
+          })
+        : undefined;
+
+      setSelectedArticleId(deleteArticle._id);
+      api
+        .deleteArticle(deleteArticle._id, token)
+        .then(() => {
+          const filteredCards = savedNewsArticles.filter(
+            (article) => article?._id !== deleteArticle._id
+          );
+          setSavedNewsArticles([...filteredCards]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   };
 
   const handleSeeMoreArticles = () => {
@@ -200,6 +215,7 @@ function App() {
         .finally(() => {
           setIsCheckingToken(false);
         });
+      getUserArticles(token);
     } else {
       setIsCheckingToken(false);
     }
@@ -268,6 +284,7 @@ function App() {
               handleSaveArticle={handleSaveArticle}
               handleDeleteArticle={handleDeleteArticle}
               handleLoginModal={handleLoginModal}
+              savedNewsArticles={savedNewsArticles}
             />
           )}
           {match && <About />}
