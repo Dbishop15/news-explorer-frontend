@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./MenuModal.css";
 import "../Navigation/Navigation";
@@ -6,6 +6,22 @@ import logoutwhite from "../../images/logout-white.svg";
 import CurrentUserContext from "../../hooks/CurrentUserContext";
 
 function MenuModal({ onClose, onLoginButton, isLoggedIn, onSignout }) {
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
+
+  const handleOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   const { currentUser } = useContext(CurrentUserContext);
   const renderAuthenticateContent = () => {
     return (
@@ -61,8 +77,9 @@ function MenuModal({ onClose, onLoginButton, isLoggedIn, onSignout }) {
       </>
     );
   };
+
   return (
-    <div className="modal menu-modal">
+    <div className="modal menu-modal" onClick={handleOverlay}>
       <div className="menu-modal__container">
         <NavLink to="/" className="menu-modal__title">
           NewsExplorer

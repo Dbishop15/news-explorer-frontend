@@ -67,6 +67,7 @@ function RegisterModal({
         type="email"
         name="email"
         id="input-email"
+        value={values.email}
         className="modal__input modal__input_type_signup-emial"
         placeholder="Enter email"
         minLength="1"
@@ -87,6 +88,7 @@ function RegisterModal({
         type="password"
         name="password"
         id="input-password"
+        value={values.password}
         className="modal__input modal__input_type_signup-password"
         placeholder="Enter password"
         minLength="3"
@@ -108,6 +110,7 @@ function RegisterModal({
         type="text"
         name="name"
         id="input-name"
+        value={values.name}
         className="modal__input modal__input_type_signup-name"
         placeholder="Enter your username"
         minLength="1"

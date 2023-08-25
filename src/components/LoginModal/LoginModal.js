@@ -65,6 +65,7 @@ function LoginModal({
         type="email"
         name="email"
         id="input-email"
+        value={values.email}
         className="modal__input modal__input_type_login-emial"
         placeholder="Enter email"
         required
@@ -83,6 +84,7 @@ function LoginModal({
         type="password"
         name="password"
         id="input-password"
+        value={values.password}
         className="modal__input modal__input_type_login-password"
         placeholder="Enter password"
         required

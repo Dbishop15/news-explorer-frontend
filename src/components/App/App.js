@@ -106,6 +106,7 @@ function App() {
       });
   };
   const handleSignOut = () => {
+    localStorage.removeItem("jwt");
     setCurrentUser(null);
     setIsLoggedIn(false);
     navigate("/");
@@ -113,10 +114,11 @@ function App() {
   };
 
   const handleSaveArticle = (card) => {
+    const token = localStorage.getItem("jwt");
     api
       .saveArticle(card, token)
       .then((data) => {
-        setSavedNewsArticles([...savedNewsArticles, data.data]);
+        setSavedNewsArticles([data.data, ...savedNewsArticles]);
       })
       .catch((err) => {
         console.log(err);
@@ -135,6 +137,7 @@ function App() {
   };
 
   const handleDeleteArticle = (articleId) => {
+    const token = localStorage.getItem("jwt");
     api
       .deleteArticle(articleId, token)
       .then(() => {
@@ -179,19 +182,6 @@ function App() {
   };
 
   useEffect(() => {
-    if (!activeModal) return;
-    const handleEscClose = (e) => {
-      if (e.key === "Escape") {
-        handleCloseModal();
-      }
-    };
-    document.addEventListener("keydown", handleEscClose);
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
-    };
-  }, [activeModal]);
-
-  useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {
       setIsCheckingToken(true);
@@ -210,7 +200,6 @@ function App() {
         .finally(() => {
           setIsCheckingToken(false);
         });
-      getUserArticles(token);
     } else {
       setIsCheckingToken(false);
     }
@@ -278,6 +267,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               handleSaveArticle={handleSaveArticle}
               handleDeleteArticle={handleDeleteArticle}
+              handleLoginModal={handleLoginModal}
             />
           )}
           {match && <About />}

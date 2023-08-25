@@ -8,6 +8,8 @@ function NewsCard({
   keyword,
   handleSaveArticle,
   handleDeleteArticle,
+  handleLoginModal,
+  index,
 }) {
   const match = useMatch("/");
   const card = {
@@ -61,14 +63,14 @@ function NewsCard({
   };
 
   return (
-    <li className="card">
+    <li className="card" key={index}>
       {match ? (
         <button
           className="card__button card__button-save"
           type="button"
           onMouseOver={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onClick={handleBookMarkButtonClick}
+          onClick={isLoggedIn ? handleBookMarkButtonClick : handleLoginModal}
         ></button>
       ) : (
         <button
