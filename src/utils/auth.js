@@ -1,8 +1,8 @@
 import { baseUrl } from "./constants";
-import { checkResponse } from "./api";
+import { request } from "./api";
 
 export const signUp = ({ name, email, password }) => {
-  return fetch(`${baseUrl}/signup`, {
+  return request(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -13,11 +13,11 @@ export const signUp = ({ name, email, password }) => {
       email,
       password,
     }),
-  }).then(checkResponse);
+  });
 };
 
 export const signIn = ({ email, password }) => {
-  return fetch(`${baseUrl}/signin`, {
+  return request(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -27,20 +27,18 @@ export const signIn = ({ email, password }) => {
       email,
       password,
     }),
-  }).then(checkResponse);
+  });
 };
 
 export const checkToken = (token) => {
-  return fetch(`${baseUrl}/users/me`, {
+  return request(`${baseUrl}/users/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  })
-    .then(checkResponse)
-    .then((data) => {
-      return data;
-    });
+  }).then((data) => {
+    return data;
+  });
 };

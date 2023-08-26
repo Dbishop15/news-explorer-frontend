@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./ModalWithForm.css";
 
 function ModalWithForm({
@@ -9,9 +10,30 @@ function ModalWithForm({
   onClose,
   onSubmit,
   handleAltClick,
+  isValid,
 }) {
+  const buttonClassName = isValid
+    ? "modal__submit-btn modal__submit-btn-valid"
+    : "modal__submit-btn";
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
+
+  const handleOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={`modal modal_type_${name}`}>
+    <div className={`modal modal_type_${name}`} onClick={handleOverlay}>
       <div className="modal__container">
         <button
           className="modal__close"
@@ -23,7 +45,7 @@ function ModalWithForm({
         <form onSubmit={onSubmit} className="modal__form" name={`${name}`}>
           {children}
 
-          <button type="submit" className="modal__submit-btn">
+          <button type="submit" className={buttonClassName} disabled={!isValid}>
             {buttonText}
           </button>
           <p className="modal__alt-button-text">

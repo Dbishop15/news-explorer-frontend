@@ -6,8 +6,11 @@ function NewsCard({
   cardInfo,
   isLoggedIn,
   keyword,
+  savedNewsArticles,
   handleSaveArticle,
   handleDeleteArticle,
+  handleLoginModal,
+  index,
 }) {
   const match = useMatch("/");
   const card = {
@@ -46,29 +49,34 @@ function NewsCard({
       .querySelector(".card__hover-text")
       .classList.remove("card__hover-text_active");
   };
-
   const handleBookMarkButtonClick = (evt) => {
     const bookmarkButton =
-      evt.target.parentElement.querySelector(".card__button-save");
+      evt.target.parentElement.querySelector(".card__button");
 
     if (bookmarkButton.classList.contains("card__button-save_active")) {
-      handleDeleteArticle();
+      handleDeleteArticle(card);
       bookmarkButton.classList.remove("card__button-save_active");
     } else {
       handleSaveArticle(card);
       bookmarkButton.classList.add("card__button-save_active");
     }
   };
+  const isBookmarked = savedNewsArticles?.some(
+    (article) => article.link === card.link
+  );
+  const cardButtonClassname = isBookmarked
+    ? "card__button card__button-save_active"
+    : "card__button card__button-save";
 
   return (
-    <li className="card">
+    <li className="card" key={index}>
       {match ? (
         <button
-          className="card__button card__button-save"
+          className={cardButtonClassname}
           type="button"
           onMouseOver={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onClick={handleBookMarkButtonClick}
+          onClick={isLoggedIn ? handleBookMarkButtonClick : handleLoginModal}
         ></button>
       ) : (
         <button
@@ -77,7 +85,7 @@ function NewsCard({
           onMouseOver={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={() => {
-            handleDeleteArticle(card?._id);
+            handleDeleteArticle(card);
           }}
         ></button>
       )}

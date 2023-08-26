@@ -1,21 +1,24 @@
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 import logoutwhite from "../../images/logout-white.svg";
 import logoutblack from "../../images/logout.svg";
-
 import { useMatch } from "react-router-dom";
+import CurrentUserContext from "../../hooks/CurrentUserContext";
 
-function Navigation({ onLoginButton, isLoggedIn, onSignout }) {
+function Navigation({ onLoginButton, isLoggedIn, onSignout, handleHomeClick }) {
+  const { currentUser } = useContext(CurrentUserContext);
+
   const match = useMatch("/");
   const renderAuthenticateContent = () => {
     return (
       <>
-        <a
-          href="/"
+        <NavLink
+          to="/"
           className={match ? "nav__links-item" : "nav__links-item-saved-news"}
         >
           Home
-        </a>
+        </NavLink>
         <NavLink
           to="/saved-news"
           className={match ? "nav__links-item" : "nav__links-item-saved-news"}
@@ -26,18 +29,18 @@ function Navigation({ onLoginButton, isLoggedIn, onSignout }) {
           className={
             match
               ? "nav__links-item nav__links-item-user"
-              : "nav__links-item-saved-news nav__links-item-user"
+              : "nav__links-item-saved-news nav__links-item-user-saved-news"
           }
         >
           <div
             type="text"
             className={
               match
-                ? "nav__links-item-username"
-                : "nav__links-item-user-saved-news"
+                ? "nav__links-item-user nav__links-item-username"
+                : "nav__links-item-user-saved-news nav__links-item-username "
             }
           >
-            Elise
+            {currentUser.name}
           </div>
           <NavLink to="/" className="nav__link-loggedout">
             <button
@@ -56,9 +59,9 @@ function Navigation({ onLoginButton, isLoggedIn, onSignout }) {
   const renderUnauthenticateContent = () => {
     return (
       <>
-        <a href="/" className="nav__links-item">
+        <NavLink to="/" className="nav__links-item">
           Home
-        </a>
+        </NavLink>
         <button
           className="nav__links-button"
           type="button"

@@ -11,6 +11,8 @@ function NewsCardList({
   isLoggedIn,
   handleSaveArticle,
   handleDeleteArticle,
+  handleLoginModal,
+  savedNewsArticles,
 }) {
   const match = useMatch("/");
   return (
@@ -20,17 +22,18 @@ function NewsCardList({
           <h2 className="cards__container-title">{`Search Results: ${keyword}`}</h2>
         )}
         <ul className="cards__container-list">
-          {newsArticles.slice(0, numberOfCards).map((article) => {
-            console.log(article);
+          {newsArticles.slice(0, numberOfCards).map((article, index) => {
             return (
               <NewsCard
                 keyword={keyword}
-                key={article?._id}
+                key={index}
                 cardInfo={article}
                 numberOfCards={numberOfCards}
                 isLoggedIn={isLoggedIn}
                 handleSaveArticle={handleSaveArticle}
                 handleDeleteArticle={handleDeleteArticle}
+                handleLoginModal={handleLoginModal}
+                savedNewsArticles={savedNewsArticles}
               />
             );
           })}

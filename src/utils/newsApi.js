@@ -1,4 +1,4 @@
-import { checkResponse } from "./api";
+import { request } from "./api";
 
 const currentDate = new Date();
 const currentDateString = currentDate.toLocaleDateString("sv-SE");
@@ -7,7 +7,7 @@ const weekPriorDateString = new Date(
 ).toLocaleDateString("sv-SE");
 
 export const getNewsApi = ({ APIkey, keyword }) => {
-  return fetch(
+  return request(
     `https://nomoreparties.co/news/v2/everything?q=${keyword}&from=${weekPriorDateString}&to=${currentDateString}&pageSize=100&apiKey=${APIkey}`,
     {
       method: "GET",
@@ -15,5 +15,5 @@ export const getNewsApi = ({ APIkey, keyword }) => {
         "Content-Type": "application/json",
       },
     }
-  ).then(checkResponse);
+  );
 };

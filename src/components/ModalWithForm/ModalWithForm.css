@@ -106,6 +106,21 @@
 }
 .modal__submit-btn {
   font-family: "Roboto", sans-serif;
+  background-color: #e6e8eb;
+  /* box-shadow: 0px 5px 15px 0px #0e1a3933; */
+  border: none;
+  color: #b6bcbf;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  border-radius: 100px;
+  width: 360px;
+  height: 64px;
+  margin: 35px auto 0;
+  /* cursor: url("../../images/hand.svg"), auto; */
+}
+.modal__submit-btn-valid {
+  font-family: "Roboto", sans-serif;
   background-color: #2f71e5;
   box-shadow: 0px 5px 15px 0px #0e1a3933;
   border: none;
@@ -119,11 +134,11 @@
   margin: 35px auto 0;
   cursor: url("../../images/hand.svg"), auto;
 }
-.modal__submit-btn:hover {
+.modal__submit-btn-valid {
   background-color: #347eff;
   transition: all 0.3s ease-out;
 }
-.modal__submit-btn:active {
+.modal__submit-btn-valid:active {
   background-color: #2a65cc;
   transition: all 0.3s ease-out;
 }
